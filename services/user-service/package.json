@@ -1,0 +1,27 @@
+{
+  "name": "grpc-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./generated-proto --grpc_out=grpc_js:./generated-proto --ts_out=./generated-proto -I ./proto ./proto/user.proto",
+    "replace-files-import": "node ./common-scripts/update-file-import.js",
+    "start": "ts-node server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "google-protobuf": "^3.21.4",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.12.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.7.13",
+    "@grpc/grpc-js": "^1.12.5"
+  }
+}

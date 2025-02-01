@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  grpc-server:
+    build:
+      context: .
+      dockerfile: services/user-service/Dockerfile
+    volumes:
+      - ./services/user-service:/app/
+      - ./common-scripts:/app/common-scripts/
+      - ./proto:/app/proto/
+      - /app/node_modules/
+    ports:
+      - "50051:50051"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - grpc-network  
+  api-server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    volumes:
+      - ./server:/app/      
+      - ./proto:/app/proto/
+      - ./common-scripts:/app/common-scripts/
+      - /app/node_modules/
+    ports:
+      - "3005:3005"
+    depends_on:
+      - grpc-server  
+    environment:
+      - NODE_ENV=production
+    networks:
+      - grpc-network  
+
+networks:
+  grpc-network:
+    driver: bridge      
+
